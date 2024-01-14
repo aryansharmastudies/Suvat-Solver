@@ -17,46 +17,46 @@ def known(val_store):
 
 def find_formula(val_store, known):  # finding formulas
     ava_keys = list()  # shortform for available keys
-    formula = list()
+    formulas = list()
     # print(val_store)
     # print(known)
     # print(known.keys())
-    for available in known.keys():
+    for available in known.keys():  # making a list containing all symbols that are known. e.g. ["S", "V", "A"]
         ava_keys.append(available)
     # print(ava_keys)
     if "S" in ava_keys:  # determines what formulas apply knowing the given values.
         if "U" in ava_keys:
             if "V" in ava_keys:
-                formula = ["f4", "f5"]
+                formulas = ["f4", "f5"]
             elif "A" in ava_keys:
-                formula = ["f2", "f4"]
+                formulas = ["f2", "f4"]
             elif "T" in ava_keys:
-                formula = ["f2", "f5"]
+                formulas = ["f2", "f5"]
         elif "V" in ava_keys:
             if "A" in ava_keys:
-                formula = ["f3", "f4"]
+                formulas = ["f3", "f4"]
             elif "T" in ava_keys:
-                formula = ["f3", "f5"]
+                formulas = ["f3", "f5"]
         elif "A" in ava_keys:
             if "T" in ava_keys:
-                formula = ["f2", "f3"]
+                formulas = ["f2", "f3"]
     elif "U" in ava_keys:
         if "V" in ava_keys:
             if "A" in ava_keys:
-                formula = ["f1", "f4"]
+                formulas = ["f1", "f4"]
             elif "T" in ava_keys:
-                formula = ["f1", "f5"]
+                formulas = ["f1", "f5"]
         elif "A" in ava_keys:
             if "T" in ava_keys:
-                formula = ["f1", "f2"]
+                formulas = ["f1", "f2"]
     elif "V" in ava_keys:
         if "A" in ava_keys:
             if "T" in ava_keys:
-                formula = ["f1", "f3"]
+                formulas = ["f1", "f3"]
 
     # print(f"formula needed: {formula}")
-    return formula
-def calculator(known, formula):
+    return formulas
+def calculator(known, formulas):
     # s, u, v, a, t = 0, 0, 0, 0, 0
     f1 = "((V-U)/T) - A"
     f2 = "((U) * (T) + (1/2) * (A) * (T**2) - S)"
@@ -64,7 +64,7 @@ def calculator(known, formula):
     f4 = "((2 * (A) * (S)) + (U**2) - (V**2))"
     f5 = "((((U+V) * (T))/2) - (S))"
     # print(known)
-    for eqn in formula:
+    for eqn in formulas:
         if eqn == "f1":
             for key, value in known.items():
                 if f1.count(key) > 0:
@@ -126,5 +126,5 @@ def calculator(known, formula):
 if __name__ == "__main__":
     val_store = input_known()
     known = known(val_store) # stores all the variable that are know.
-    formula = find_formula(val_store, known)
-    calculator(known, formula)
+    formulas = find_formula(val_store, known)
+    calculator(known, formulas)
